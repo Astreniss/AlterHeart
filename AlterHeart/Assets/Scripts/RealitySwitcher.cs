@@ -8,6 +8,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RealitySwitcher : MonoBehaviour
 {
@@ -15,23 +16,52 @@ public class RealitySwitcher : MonoBehaviour
     public GameObject realityTwo;
     public GameObject player;
 
+    public int version = 1;
+
     private int currentReality;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void Start()
     {
-        currentReality = 1;
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Swap Realities"))
         {
-            StartCoroutine(SwitchReality());
+            if(version == 1)
+            {
+                print("Switching active objects");
+                StartCoroutine(SwitchReality1());
+            }   
+            else if(version == 2)
+            {
+                print("Switching scenes");
+                SwitchReality2();
+            }
         }
-
     }
 
-    private IEnumerator SwitchReality()
+    private void SwitchReality2()
+    {
+        player.GetComponent<PlayerBehaviour>().Jump();
+
+        if (currentReality == 1)
+        {
+            SceneManager.LoadScene(2);
+            currentReality = 2;
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+            currentReality = 1;
+        }
+    }
+
+    private IEnumerator SwitchReality1()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
         yield return new WaitForSeconds(.2f);
