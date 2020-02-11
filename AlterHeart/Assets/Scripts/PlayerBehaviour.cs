@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool OnGround()
     {
         bool result = false;
-
+        /*
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, 1f)) //shoot ray at the ground and figure out how far away the player is to the ground
         {
             if (Hit.transform.gameObject != null)
@@ -53,7 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
                 result = true;
             }
         }
-
+        */
         return result;
     }
 }
