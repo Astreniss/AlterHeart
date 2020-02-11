@@ -11,6 +11,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody rb;
+    public RealityController rc;
 
     public float moveSpeed;
     public float jumpForce;
@@ -29,7 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Movement()
     {
-
+        
     }
 
     public void Jump()
@@ -43,6 +44,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private bool OnGround()
     {
-        return true;
+        bool result = false;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, 1f)) //shoot ray at the ground and figure out how far away the player is to the ground
+        {
+            if (Hit.transform.gameObject != null)
+            {
+                result = true;
+            }
+        }
+
+        return result;
     }
 }
