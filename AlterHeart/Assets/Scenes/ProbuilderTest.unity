@@ -595,12 +595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb5471747a15db49bc79bfcabbefe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectRealityOne: {fileID: 0}
-  objectRealityTwo: {fileID: 0}
   teleportRealityOne: {fileID: 1759013707}
-  teleportRealityTwo: {fileID: 0}
+  teleportRealityTwo: {fileID: 314748060}
   player: {fileID: 1642386947}
-  version: 3
 --- !u!4 &777340507
 Transform:
   m_ObjectHideFlags: 0
@@ -902,7 +899,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-23186
+  m_Name: pb_Mesh11284
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2

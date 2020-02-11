@@ -45,8 +45,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool OnGround()
     {
         bool result = false;
-
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, 1f))
+        RaycastHit Hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out Hit, 1f))
         {
             if (Hit.transform.gameObject != null)
             {
