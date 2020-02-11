@@ -12,100 +12,72 @@ using UnityEngine.SceneManagement;
 
 public class RealityController : MonoBehaviour
 {
-    public GameObject objectRealityOne;
-    public GameObject objectRealityTwo;
-
     public Transform teleportRealityOne;
     public Transform teleportRealityTwo;
     private Vector3 teleportDistance;
 
     public GameObject player;
 
-    public int version = 1;
-
     private int currentReality;
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    private GameObject[] DimensionOnePoints;
+    private GameObject[] DimensionTwoPoints;
 
     private void Start()
     {
         teleportDistance = teleportRealityTwo.position - teleportRealityOne.position;
+        DimensionOnePoints = GameObject.FindGameObjectsWithTag("DimensionOnePoints");
+        DimensionTwoPoints = GameObject.FindGameObjectsWithTag("DimensionTwoPoints");
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Swap Realities"))
         {
-            if(version == 1)
-            {
-                print("Switching active objects");
-                StartCoroutine(SwitchReality1());
-            }   
-            else if(version == 2)
-            {
-                print("Switching scenes");
-                SwitchReality2();
-            }
-            else if (version == 3)
-            {
-                print("Teleporting");
-                SwitchReality3();
-            }
+            SwitchReality();
         }
     }
 
-    private IEnumerator SwitchReality1()
+    //Decides which TeleportPoint in the current dimension is closest
+    private Vector3 ClosestPoint()
     {
-        player.GetComponent<PlayerBehaviour>().Jump();
-        yield return new WaitForSeconds(.2f);
-        player.GetComponent<Rigidbody>().velocity = Vector2.zero;
-        player.GetComponent<Rigidbody>().useGravity = false;
+        Vector3 result = Vector3.zero;
 
-        if (currentReality == 1)
+        if(currentReality == 1)
         {
-            currentReality = 2;
-            objectRealityOne.SetActive(false);
-            objectRealityTwo.SetActive(true);
+            float lowestDist = 1000000;
+            for (int i = 0; i <= DimensionOnePoints.Length; i++)
+            {
+                float thisDist = DimensionOnePoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
+                if(thisDist < lowestDist)
+                {
+                    lowestDist = thisDist;
+                    result = DimensionOnePoints[i].transform.position;
+                }
+            }
         }
         else
         {
-            currentReality = 1;
-            objectRealityOne.SetActive(true);
-            objectRealityTwo.SetActive(false);
+            float lowestDist = 1000000;
+            for (int i = 0; i <= DimensionTwoPoints.Length; i++)
+            {
+                float thisDist = DimensionTwoPoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
+                if (thisDist < lowestDist)
+                {
+                    lowestDist = thisDist;
+                    result = DimensionTwoPoints[i].transform.position;
+                }
+            }
         }
-        yield return new WaitForSeconds(.5f);
-        player.GetComponent<Rigidbody>().useGravity = true;
 
-    }
-
-    //Switches reality by Switching scenes
-    private void SwitchReality2()
-    {
-        player.GetComponent<PlayerBehaviour>().Jump();
-
-        if (currentReality == 1)
-        {
-            SceneManager.LoadScene(2);
-            currentReality = 2;
-        }
-        else
-        {
-            SceneManager.LoadScene(1);
-            currentReality = 1;
-        }
+        return result;
     }
 
     //Switches reality by teleporting
-    private void SwitchReality3()
+    private void SwitchReality()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
 
         Vector3 newPos = player.transform.position;
-
-        
 
         if (currentReality == 1)
         {
