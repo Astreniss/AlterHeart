@@ -22,15 +22,9 @@ public class RealityController : MonoBehaviour
     private GameObject[] DimensionOnePoints;
     private GameObject[] DimensionTwoPoints;
 
-    private float shortestDistanceA = 0f;
-    private float shortestDistanceB = 0f;
-
     private void Start()
     {
         currentReality = 1;
-
-        shortestDistanceA = 1000000;
-        shortestDistanceB = 1000000;
 
         //teleportDistance = teleportRealityTwo.position - teleportRealityOne.position;
         DimensionOnePoints = GameObject.FindGameObjectsWithTag("DimensionOnePoints");
@@ -39,9 +33,6 @@ public class RealityController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("A" + shortestDistanceA); 
-        Debug.Log("B" + shortestDistanceA);
-
         if (Input.GetButtonDown("Swap Realities"))
         {
             SwitchReality();
@@ -55,36 +46,35 @@ public class RealityController : MonoBehaviour
 
         if(currentReality == 1)
         {
-            //float lowestDist = 1000000;
-
-            shortestDistanceA = 1000000;
+            float lowestDist = 1000000;
 
             for (int i = 0; i < DimensionOnePoints.Length; i++)
             {
-                
                 float thisDist = DimensionOnePoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
+                Debug.Log("thisDist A: " + thisDist);
 
-                if(thisDist <= shortestDistanceA)
+                if (thisDist < lowestDist)
                 {
-                    shortestDistanceA = thisDist;
+                    lowestDist = thisDist;
+                    Debug.Log("A " + lowestDist);
                     result = DimensionOnePoints[i].GetComponent<TeleportPoints>().partner.transform.position;
                 }
             }
         }
         else if(currentReality == 2)
         {
-            //float lowestDist = 1000000;
-
-            shortestDistanceB = 1000000;
+            float lowestDist = 1000000;
 
             for (int i = 0; i < DimensionTwoPoints.Length; i++)
             {
                 float thisDist = DimensionTwoPoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
+                Debug.Log("thisDist B: " + thisDist);
 
-                if (thisDist <= shortestDistanceB)
+                if (thisDist < lowestDist)
                 {
-                    shortestDistanceB = thisDist;
+                    lowestDist = thisDist;
 
+                    Debug.Log("B " + lowestDist);
                     result = DimensionTwoPoints[i].GetComponent<TeleportPoints>().partner.transform.position;
                         
                         //transform.position;
@@ -102,16 +92,17 @@ public class RealityController : MonoBehaviour
         
         Vector3 newPos = player.transform.position;
 
+        newPos = ClosestPoint();
+        player.transform.position = newPos;
+
         if (currentReality == 1)
         {
             currentReality = 2;            
         }
-        else
+        else if(currentReality == 2)
         {
             currentReality = 1;
         }
-        newPos = ClosestPoint();
-        player.transform.position = newPos;
     }
 
     
