@@ -104,6 +104,4 @@ public class RealityController : MonoBehaviour
             currentReality = 1;
         }
     }
-
-    
 }

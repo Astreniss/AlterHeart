@@ -16,10 +16,13 @@ public class PlayerBehaviour : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
 
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
+        
     }
     private void Update()
     {
@@ -42,6 +45,19 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<GravityChanger>() != null)
+        {
+
+        }
+    }
+
+    private void GravityChange()
+    {
+        
+    }
+
     /// <summary>
     /// Applies upward force if on the ground
     /// </summary>
@@ -51,7 +67,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce);
         }
-
     }
 
     /// <summary>
