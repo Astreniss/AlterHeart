@@ -11,9 +11,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
+    private Vector3 startPos;
 
+    private void Start()
+    {
+        startPos = transform.position;
+    }
     void LateUpdate()
     {
-        transform.position = target.position;
+        
+        transform.position = target.position + startPos;
     }
 }

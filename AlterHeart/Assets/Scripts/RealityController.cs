@@ -45,7 +45,7 @@ public class RealityController : MonoBehaviour
         if(currentReality == 1)
         {
             float lowestDist = 1000000;
-            for (int i = 0; i <= DimensionOnePoints.Length; i++)
+            for (int i = 0; i < DimensionOnePoints.Length; i++)
             {
                 float thisDist = DimensionOnePoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
                 if(thisDist < lowestDist)
@@ -58,7 +58,7 @@ public class RealityController : MonoBehaviour
         else
         {
             float lowestDist = 1000000;
-            for (int i = 0; i <= DimensionTwoPoints.Length; i++)
+            for (int i = 0; i < DimensionTwoPoints.Length; i++)
             {
                 float thisDist = DimensionTwoPoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
                 if (thisDist < lowestDist)
@@ -76,20 +76,18 @@ public class RealityController : MonoBehaviour
     private void SwitchReality()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
-
+        
         Vector3 newPos = player.transform.position;
 
         if (currentReality == 1)
         {
-            currentReality = 2;
-            newPos -= teleportDistance;
+            currentReality = 2;            
         }
         else
         {
             currentReality = 1;
-            newPos += teleportDistance;
         }
-
+        newPos = ClosestPoint();
         player.transform.position = newPos;
     }
 
