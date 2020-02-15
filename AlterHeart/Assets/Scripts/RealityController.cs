@@ -22,11 +22,15 @@ public class RealityController : MonoBehaviour
     private GameObject[] DimensionOnePoints;
     private GameObject[] DimensionTwoPoints;
 
+    public Light myLighting;
+    public Color r1Light;
+    public Color r2Light;
+
     private void Start()
     {
         currentReality = 1;
 
-        //teleportDistance = teleportRealityTwo.position - teleportRealityOne.position;
+        myLighting.color = r1Light;
         DimensionOnePoints = GameObject.FindGameObjectsWithTag("DimensionOnePoints");
         DimensionTwoPoints = GameObject.FindGameObjectsWithTag("DimensionTwoPoints");
     }
@@ -76,8 +80,6 @@ public class RealityController : MonoBehaviour
 
                     Debug.Log("B " + lowestDist);
                     result = DimensionTwoPoints[i].GetComponent<TeleportPoints>().partner.transform.position;
-                        
-                        //transform.position;
                 }
             }
         }
@@ -85,7 +87,7 @@ public class RealityController : MonoBehaviour
         return result;
     }
 
-    //Switches reality by teleporting
+    //Switches reality by teleporting 
     private void SwitchReality()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
@@ -97,11 +99,13 @@ public class RealityController : MonoBehaviour
 
         if (currentReality == 1)
         {
-            currentReality = 2;            
+            currentReality = 2;
+            myLighting.color = r2Light;
         }
         else if(currentReality == 2)
         {
             currentReality = 1;
+            myLighting.color = r1Light;
         }
     }
 }
