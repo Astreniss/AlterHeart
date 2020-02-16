@@ -9,6 +9,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RealityController : MonoBehaviour
 {
@@ -26,22 +27,49 @@ public class RealityController : MonoBehaviour
     public Color r1Light;
     public Color r2Light;
 
+    public Image whiteFlash;
+    public float flashSpeed = 10;
+    float flashAlpha;
+
+    public ParticleSystem teleportParticles;
+
     private void Start()
     {
         currentReality = 1;
 
+        flashAlpha = 0;
+        Color temp = whiteFlash.color;
+
+        temp.a = flashAlpha;
+        whiteFlash.color = temp;
+
         myLighting.color = r1Light;
         DimensionOnePoints = GameObject.FindGameObjectsWithTag("DimensionOnePoints");
         DimensionTwoPoints = GameObject.FindGameObjectsWithTag("DimensionTwoPoints");
+
+        teleportParticles.Stop();
+    }
+
+    IEnumerator ActivateParticles()
+    {
+        teleportParticles.Play();
+        yield return new WaitForSeconds(1f);
+        teleportParticles.Stop();
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Swap Realities"))
         {
-            SwitchReality();
+            StartCoroutine(SwitchReality());
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            StartCoroutine(Flash());
         }
     }
+
+    
 
     //Decides which TeleportPoint in the current dimension is closest
     private Vector3 ClosestPoint()
@@ -55,12 +83,12 @@ public class RealityController : MonoBehaviour
             for (int i = 0; i < DimensionOnePoints.Length; i++)
             {
                 float thisDist = DimensionOnePoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
-                Debug.Log("thisDist A: " + thisDist);
+                //Debug.Log("thisDist A: " + thisDist);
 
                 if (thisDist < lowestDist)
                 {
                     lowestDist = thisDist;
-                    Debug.Log("A " + lowestDist);
+                    //Debug.Log("A " + lowestDist);
                     result = DimensionOnePoints[i].GetComponent<TeleportPoints>().partner.transform.position;
                 }
             }
@@ -72,13 +100,13 @@ public class RealityController : MonoBehaviour
             for (int i = 0; i < DimensionTwoPoints.Length; i++)
             {
                 float thisDist = DimensionTwoPoints[i].GetComponent<TeleportPoints>().CompareDistance(player.transform.position);
-                Debug.Log("thisDist B: " + thisDist);
+                //Debug.Log("thisDist B: " + thisDist);
 
                 if (thisDist < lowestDist)
                 {
                     lowestDist = thisDist;
 
-                    Debug.Log("B " + lowestDist);
+                    //Debug.Log("B " + lowestDist);
                     result = DimensionTwoPoints[i].GetComponent<TeleportPoints>().partner.transform.position;
                 }
             }
@@ -88,10 +116,11 @@ public class RealityController : MonoBehaviour
     }
 
     //Switches reality by teleporting 
-    private void SwitchReality()
+    private IEnumerator SwitchReality()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
-        
+        StartCoroutine(ActivateParticles());
+        yield return new WaitForSeconds(1f);
         Vector3 newPos = player.transform.position;
 
         newPos = ClosestPoint();
@@ -107,5 +136,29 @@ public class RealityController : MonoBehaviour
             currentReality = 1;
             myLighting.color = r1Light;
         }
+    }
+
+    IEnumerator Flash()
+    {
+        Color temp = whiteFlash.color;
+
+        while (flashAlpha < 255)
+        {
+            yield return new WaitForSeconds(.1f);
+            flashAlpha += flashSpeed;
+            temp.a = flashAlpha;
+            whiteFlash.color = temp;
+        }
+
+        yield return new WaitForSeconds(.01f);
+
+        while (flashAlpha > 0)
+        {
+            yield return new WaitForSeconds(.1f);
+            flashAlpha -= flashSpeed;
+            temp.a = flashAlpha;
+            whiteFlash.color = temp;
+        }
+
     }
 }
