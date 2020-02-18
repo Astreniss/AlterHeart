@@ -15251,9 +15251,9 @@ MonoBehaviour:
   teleportRealityOne: {fileID: 1441614601}
   teleportRealityTwo: {fileID: 1333563696}
   player: {fileID: 1440544643}
-  myLighting: {fileID: 0}
-  r1Light: {r: 0, g: 0, b: 0, a: 0}
-  r2Light: {r: 0, g: 0, b: 0, a: 0}
+  myLighting: {fileID: 898322349}
+  r1Light: {r: 1, g: 0.95686275, b: 0.8392157, a: 0}
+  r2Light: {r: 0.9528302, g: 0.36497176, b: 0.18427375, a: 0}
   whiteFlash: {fileID: 0}
   flashSpeed: 10
   teleportParticles: {fileID: 0}
