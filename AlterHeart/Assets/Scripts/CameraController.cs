@@ -10,6 +10,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public LayerMask raycastLayer;
+    public float spherecastRadius = 1f;
+
     public float mouseSensitivity = 100f;
     public Transform playerBody;
     private float xRotation = 0f;
@@ -34,7 +37,30 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         playerBody.Rotate(Vector3.up * mouseX);
+
+        RaycastHit hit;
+
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, raycastLayer))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            //Debug.Log("Did Hit");
+        }
+
+        // Spherecast to determine object hit
+        if (Physics.SphereCast(transform.position, spherecastRadius, transform.forward, out hit, Mathf.Infinity, raycastLayer, QueryTriggerInteraction.UseGlobal))
+        {
+            Debug.Log("Hovering Over Button ");
+
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    hit.collider.GetComponent<ButtonController>().PushButton();
+                }
+            
+            //Debug.Log(hit.collider.isTrigger);  
+        }
     }
+
 
     void LateUpdate()
     {

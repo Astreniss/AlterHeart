@@ -10,6 +10,11 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public Transform cameraAngle;
+    public Transform cameraTransform;
+    private float heading = 0f;
+    private Vector2 input;
+
     private Rigidbody rb;
     public RealityController rc;
 
@@ -21,14 +26,29 @@ public class PlayerBehaviour : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        
     }
     private void Update()
     {
-        Movement();
+        //Movement();
+
+        heading += Input.GetAxis("Mouse X") * Time.deltaTime * 180;
+        cameraAngle.rotation = Quaternion.Euler(0, heading, 0);
+        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        input = Vector2.ClampMagnitude(input, 1);
+
+        Vector3 camF = cameraTransform.forward;
+        Vector3 camR = cameraTransform.right;
+
+        camF.y = 0;
+        camR.y = 0;
+        camF = camF.normalized;
+        camR = camR.normalized;
+        transform.position += (camF * input.y + camR * input.x) * Time.deltaTime * 5;
+
         if (Input.GetButtonDown("Jump"))
+        {
             Jump();
+        }
     }
 
     private void Movement()
