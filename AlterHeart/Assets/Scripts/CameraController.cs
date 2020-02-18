@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log("Hovering Over Button ");
 
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                 if(hit.collider.GetComponent<ButtonController>() != null)
                 {
