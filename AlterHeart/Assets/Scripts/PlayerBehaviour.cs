@@ -12,6 +12,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public Transform cameraAngle;
     public Transform cameraTransform;
+
     private float heading = 0f;
     private Vector2 input;
 
@@ -29,10 +30,11 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        //Movement();
+        //Rotate camera 180 degrees per second based on Mouse X Movement
+       // heading += Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
+        //cameraAngle.rotation = Quaternion.Euler(0, heading, 0);
 
-        heading += Input.GetAxis("Mouse X") * Time.deltaTime * 180;
-        cameraAngle.rotation = Quaternion.Euler(0, heading, 0);
+
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         input = Vector2.ClampMagnitude(input, 1);
 
@@ -43,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
         camR.y = 0;
         camF = camF.normalized;
         camR = camR.normalized;
-        transform.position += (camF * input.y + camR * input.x) * Time.deltaTime * 5;
+        transform.position += (camF * input.y + camR * input.x) * Time.deltaTime * moveSpeed;
 
         if (Input.GetButtonDown("Jump"))
         {
