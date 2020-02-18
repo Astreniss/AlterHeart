@@ -37,17 +37,17 @@ public class RealityController : MonoBehaviour
     {
         currentReality = 1;
 
-        flashAlpha = 0;
-        Color temp = whiteFlash.color;
+     //   flashAlpha = 0;
+      //  Color temp = whiteFlash.color;
 
-        temp.a = flashAlpha;
-        whiteFlash.color = temp;
+       // temp.a = flashAlpha;
+        //whiteFlash.color = temp;
 
-        myLighting.color = r1Light;
+        //myLighting.color = r1Light;
         DimensionOnePoints = GameObject.FindGameObjectsWithTag("DimensionOnePoints");
         DimensionTwoPoints = GameObject.FindGameObjectsWithTag("DimensionTwoPoints");
 
-        teleportParticles.Stop();
+        //teleportParticles.Stop();
     }
 
     IEnumerator ActivateParticles()
@@ -65,7 +65,7 @@ public class RealityController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            StartCoroutine(Flash());
+            //StartCoroutine(Flash());
         }
     }
 
@@ -119,7 +119,7 @@ public class RealityController : MonoBehaviour
     private IEnumerator SwitchReality()
     {
         player.GetComponent<PlayerBehaviour>().Jump();
-        StartCoroutine(ActivateParticles());
+        //StartCoroutine(ActivateParticles());
         yield return new WaitForSeconds(1f);
         Vector3 newPos = player.transform.position;
 
@@ -129,15 +129,16 @@ public class RealityController : MonoBehaviour
         if (currentReality == 1)
         {
             currentReality = 2;
-            myLighting.color = r2Light;
+            //myLighting.color = r2Light;
         }
         else if(currentReality == 2)
         {
             currentReality = 1;
-            myLighting.color = r1Light;
+            //myLighting.color = r1Light;
         }
     }
 
+    /*
     IEnumerator Flash()
     {
         Color temp = whiteFlash.color;
@@ -160,5 +161,5 @@ public class RealityController : MonoBehaviour
             whiteFlash.color = temp;
         }
 
-    }
+    }*/
 }
