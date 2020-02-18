@@ -10,12 +10,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Texture2D cursorTexture;
-  //  public Texture2D cursorTextureSelected;
-
-    public CursorMode cursorMode = CursorMode.Auto;
-    public Vector2 hotSpot = Vector2.zero;
-
     public LayerMask raycastLayer;
     public float spherecastRadius = 1f;
 
@@ -27,18 +21,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
         //startPos = transform.position;
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = cursorPos;
-        
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -64,13 +54,13 @@ public class CameraController : MonoBehaviour
             Debug.Log("Hovering Over Button ");
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                if(hit.collider.GetComponent<ButtonController>() != null)
+            {
+                if (hit.collider.GetComponent<ButtonController>() != null)
                 {
                     hit.collider.GetComponent<ButtonController>().PushButton();
                 }
             }
-            
+
             //Debug.Log(hit.collider.isTrigger);  
         }
     }
@@ -78,7 +68,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        
+
         //transform.position = playerBody.position + startPos;
     }
 }
