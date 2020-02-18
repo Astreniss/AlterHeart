@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
+    public AudioSource SoundEffectSource;
+    public AudioClip buttonSound;
+
     public bool isPushed;
     public GameObject activationObject;
 
@@ -30,6 +33,8 @@ public class ButtonController : MonoBehaviour
         if(!isPushed)
         {
             isPushed = true;
+            SoundEffectSource.clip = buttonSound;
+            SoundEffectSource.Play();
             Debug.Log("Button Pushed ");
 
             Vector3 landParticlesLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + yParticleModifier, gameObject.transform.position.z);
