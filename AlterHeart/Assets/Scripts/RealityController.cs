@@ -118,7 +118,7 @@ public class RealityController : MonoBehaviour
     //Switches reality by teleporting 
     private IEnumerator SwitchReality()
     {
-        player.GetComponent<PlayerBehaviour>().Jump();
+        //player.GetComponent<PlayerBehaviour>().Jump();
         //StartCoroutine(ActivateParticles());
         yield return new WaitForSeconds(1f);
         Vector3 newPos = player.transform.position;
