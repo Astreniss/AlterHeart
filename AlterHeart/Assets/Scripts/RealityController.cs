@@ -13,6 +13,9 @@ using UnityEngine.UI;
 
 public class RealityController : MonoBehaviour
 {
+    public Light directionalLight;
+    public Color[] dimensionLightColor;
+
     public Transform teleportRealityOne;
     public Transform teleportRealityTwo;
     //private Vector3 teleportDistance;
@@ -22,10 +25,6 @@ public class RealityController : MonoBehaviour
     private int currentReality = 1;
     private GameObject[] DimensionOnePoints;
     private GameObject[] DimensionTwoPoints;
-
-    public Light myLighting;
-    public Color r1Light;
-    public Color r2Light;
 
     public Image whiteFlash;
     public float flashSpeed = 10;
@@ -79,6 +78,7 @@ public class RealityController : MonoBehaviour
         if(currentReality == 1)
         {
             float lowestDist = 1000000;
+            directionalLight.color = dimensionLightColor[0];
 
             for (int i = 0; i < DimensionOnePoints.Length; i++)
             {
@@ -96,6 +96,7 @@ public class RealityController : MonoBehaviour
         else if(currentReality == 2)
         {
             float lowestDist = 1000000;
+            directionalLight.color = dimensionLightColor[1];
 
             for (int i = 0; i < DimensionTwoPoints.Length; i++)
             {
@@ -129,12 +130,10 @@ public class RealityController : MonoBehaviour
         if (currentReality == 1)
         {
             currentReality = 2;
-            //myLighting.color = r2Light;
         }
         else if(currentReality == 2)
         {
             currentReality = 1;
-            //myLighting.color = r1Light;
         }
     }
 
