@@ -54,8 +54,11 @@ public class CameraController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha0))
                 {
+                if(hit.collider.GetComponent<ButtonController>() != null)
+                {
                     hit.collider.GetComponent<ButtonController>().PushButton();
                 }
+            }
             
             //Debug.Log(hit.collider.isTrigger);  
         }

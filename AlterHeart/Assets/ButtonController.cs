@@ -7,6 +7,10 @@ public class ButtonController : MonoBehaviour
     public bool isPushed;
     public GameObject activationObject;
 
+    public ParticleSystem pushParticles;
+    GameObject pushParticlesObj;
+    public float yParticleModifier = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +31,13 @@ public class ButtonController : MonoBehaviour
         {
             isPushed = true;
             Debug.Log("Button Pushed ");
+
+            Vector3 landParticlesLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + yParticleModifier, gameObject.transform.position.z);
+            pushParticlesObj = Instantiate(pushParticles.gameObject, landParticlesLocation, Quaternion.Euler(-90f, 0f, 0f));
+            pushParticles.Play();
+
+            Destroy(pushParticlesObj, 3f);
+
             activationObject.SetActive(false);
         }
     }
