@@ -63,7 +63,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (xMove != 0 || zMove != 0)
         {
-            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(xMove, rb.velocity.y, zMove), 1);
+            //rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(xMove, rb.velocity.y, zMove), 1);
+            rb.MovePosition(Vector3.Lerp(rb.velocity, new Vector3(xMove, rb.velocity.y, zMove), 1));
         }
     }
 
