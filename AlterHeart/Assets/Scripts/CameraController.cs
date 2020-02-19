@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -54,13 +54,13 @@ public class CameraController : MonoBehaviour
             Debug.Log("Hovering Over Button ");
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                if (hit.collider.GetComponent<ButtonController>() != null)
+                {
+                if(hit.collider.GetComponent<ButtonController>() != null)
                 {
                     hit.collider.GetComponent<ButtonController>().PushButton();
                 }
             }
-
+            
             //Debug.Log(hit.collider.isTrigger);  
         }
     }
@@ -68,7 +68,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-
+        
         //transform.position = playerBody.position + startPos;
     }
 }

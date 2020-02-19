@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
 
-
+    
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         //Rotate camera 180 degrees per second based on Mouse X Movement
-        // heading += Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
+       // heading += Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
         //cameraAngle.rotation = Quaternion.Euler(0, heading, 0);
 
 
@@ -63,13 +63,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (xMove != 0 || zMove != 0)
         {
-            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(xMove, rb.velocity.y, zMove), 1);
+            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(xMove, rb.velocity.y, zMove) , 1);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<GravityChanger>() != null)
+        if(other.GetComponent<GravityChanger>() != null)
         {
 
         }
@@ -77,7 +77,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void GravityChange()
     {
-
+        
     }
 
     /// <summary>
