@@ -5064,7 +5064,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_SizeDelta: {x: 23, y: 23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028540477
 MonoBehaviour:
@@ -5079,12 +5079,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.27450982}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 62dd3d2523cfd8445b2786c52afa9281, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f03a180d9c8955248a1adcc433a16364, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11981,14 +11981,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crossHair: {fileID: 1028540477}
-  crossHairUnselected: {fileID: 21300000, guid: 62dd3d2523cfd8445b2786c52afa9281,
+  crossHairUnselected: {fileID: 21300000, guid: f03a180d9c8955248a1adcc433a16364,
     type: 3}
-  crossHairSelected: {fileID: 21300000, guid: 38ea1c32abef0c94384e32256dc93635, type: 3}
+  crossHairSelected: {fileID: 21300000, guid: 9fcd7d9f05213204db737970812c017e, type: 3}
   raycastLayer:
     serializedVersion: 2
     m_Bits: 256
   spherecastRadius: 1
-  mouseSensitivity: 200
+  mouseSensitivity: 100
   playerBody: {fileID: 1440544649}
 --- !u!81 &1257616065
 AudioListener:
