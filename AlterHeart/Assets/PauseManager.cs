@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
+    public GameObject howToPlayPanel;
+
     public string restartGameSceneToLoad;
 
     private bool isPaused;
@@ -13,6 +15,7 @@ public class PauseManager : MonoBehaviour
     void Start()
     {
         pausePanel.SetActive(false);
+        howToPlayPanel.SetActive(false);
         isPaused = false;
     }
 
@@ -31,7 +34,8 @@ public class PauseManager : MonoBehaviour
         {
             isPaused = true;
             pausePanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.Confined; 
+            howToPlayPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
         }
         else if(isPaused)
@@ -39,6 +43,7 @@ public class PauseManager : MonoBehaviour
             isPaused = false;
             Cursor.lockState = CursorLockMode.Locked;
             pausePanel.SetActive(false);
+            howToPlayPanel.SetActive(false);
             Time.timeScale = 1;
         }
     }
