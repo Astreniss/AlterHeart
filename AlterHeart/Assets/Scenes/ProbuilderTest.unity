@@ -34975,6 +34975,9 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+>>>>>>> parent of 820485f... Stopped camera from clipping through objects
+=======
 >>>>>>> parent of 820485f... Stopped camera from clipping through objects
   m_Name: pb_Mesh17002
   serializedVersion: 10
